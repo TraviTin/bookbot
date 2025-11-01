@@ -1,8 +1,15 @@
+import sys
 from stats import (
     get_num_words, 
     amount_of_characters,
     chars_dict_to_sroted_list,
 )
+
+def inputs():
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    return sys.argv[1]
 
 def get_book_text(file_path):
     with open(file_path) as f:
@@ -10,8 +17,9 @@ def get_book_text(file_path):
         return file_contents
 
 def main():
-    text = get_book_text("./books/frankenstein.txt")
-    book_path = "./books/frankenstein.txt"
+
+    book_path = inputs() 
+    text = get_book_text(book_path)
     num_words = get_num_words(text)
     char_count = amount_of_characters(text)
     chars_sorted_list = chars_dict_to_sroted_list(char_count)
@@ -28,7 +36,7 @@ def print_report(book_path, num_words, chars_sorted_list):
             continue
         print(f"{item['char']}: {item['num']}")
     print("============= END ===============")
-    
+
 if __name__ == "__main__": 
     main()    
 
